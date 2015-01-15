@@ -8,4 +8,8 @@ module.exports = function(app) {
 	})
 
 	// create a route that handles adding a friend
+	app.post('/friends/new', function(req, res) {
+		friends.new(req, res);
+	})
+	
 }
