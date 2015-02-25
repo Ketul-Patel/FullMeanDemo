@@ -17,17 +17,6 @@ module.exports = (function() {
 				console.log(results)
 				res.send(JSON.stringify(results));
 			})
-		},
-		new: function(req, res) {
-			console.log("we're in the new method")
-			var new_friend = new Friend(req.body);
-			new_friend.save(function(err) {
-				if(err) {
-					console.log("err");
-				} else {
-					res.json({result: "success!"});
-				}
-			})
 		}
 	}
 })();

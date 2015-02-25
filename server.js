@@ -2,8 +2,6 @@
 
 // require express so that we can build an express app
 var express = require('express');
-// require http so we can use http request and response stuff
-var http = require('http');
 // require path so we can use path stuff like path.join
 var path = require('path');
 
@@ -16,10 +14,6 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 
-// allows us to use put, patch, and delete http verbs
-var methodOverride = require('method-override');
-app.use(methodOverride('X-HTTP-Method-Override'));
-
 // sets up a static file server that points to the client directory
 app.use(express.static(path.join(__dirname, 'client')));
 
@@ -27,12 +21,9 @@ var mongoose = require('./config/mongoose.js');
 
 var routes = require('./config/routes.js')(app);
 
-// sets the port
-app.set('port', 3000);
-
 // starts listening
-app.listen(app.get('port'), function() {
-	console.log('cool stuff on: '+ app.get('port'));
+app.listen(8000, function() {
+	console.log('cool stuff on: 8000');
 })
 
 

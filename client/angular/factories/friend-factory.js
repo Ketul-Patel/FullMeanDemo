@@ -15,12 +15,8 @@ fullMeanDemo.factory('FriendFactory', function($http) {
 
 	// adding a friend via the server/db
 	factory.addNewFriend = function(info, callback) {
-		$http.post('/friends/new', {name: info.name, age: info.age}).success(function(data) {
-			console.log(data);
-			friends.push({name: info.name, age: info.age});
-			callback();
-		})
-		
+		friends.push(info);
+		callback();
 	}
 	return factory;
 })
