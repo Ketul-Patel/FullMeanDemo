@@ -12,7 +12,7 @@ fullMeanDemo.controller('FriendsController', function($scope, FriendFactory) {
 
 	$scope.addfriend = function() {
 		FriendFactory.addNewFriend($scope.new_friend, function() {
-			updateFriends();
+			console.log("We added a Friend!!! NOT!")
 		});
 		
 	}
