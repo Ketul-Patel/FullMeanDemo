@@ -1,22 +1,26 @@
-// make the factory call it FriendFactory and pass it a callback function telling us that we are going to use $http functionality
+// creates a factory on the fullMeanDemo application and gives it access to $http
 fullMeanDemo.factory('FriendFactory', function($http) {
+	// create a factory object which is our object to return
 	var factory= {};
+	// have an array of friends to keep track of our data on the client side WOOHOO for client side frameworks!!!
 	var friends = [];
-	// get all friends from the backend pass it a callback function so we can make things run synchronously 
+	// sends an http request to get all of the friends and then pass it back to the controller
 	factory.getFriends = function(callback) {
-		// send a get request to the url '/friends_json'
-		$http.get('/friends_json').success(function(output) {
-			friends = output;
-			console.log(friends)
-			// we run a callback so that the controller can do things synchronously
+		// $http is a service that allows us to make an ajax call and it has a success event
+		$http.get('/friends').success(function(resdata) {
+			// set up our array to keep track of friends
+			friends = resdata;
+			// pass friends via callback to whatever called the factory.getFriends method
 			callback(friends);
 		})
 	}
-
-	// adding a friend via the server/db
-	factory.addNewFriend = function(info, callback) {
-		friends.push(info);
-		callback();
+	factory.addFriend = function(friend_to_add, callback) {
+		$http.post('/friends', {name: friend_to_add.name, age: friend_to_add.age}).success(function(somedata) {
+			friends.push({name: friend_to_add.name, age: friend_to_add.age})
+			callback(friends);
+		})
+		// friends.push({name: friend_to_add.name, age: friend_to_add.age})
+		// callback(friends);
 	}
 	return factory;
 })

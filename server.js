@@ -1,27 +1,27 @@
-// this is our server.js file
-
-// require express so that we can build an express app
+// requires express
 var express = require('express');
-// require path so we can use path stuff like path.join
+// requires path so we can do pathy stuff
 var path = require('path');
-
-// create the express app
-// express is a set of tools that allows us to more easily deal with http actions and some other stuff involving setting variables and getting them
+// invoke express to create an application
 var app = express();
 
-// so that we can parse post data through the req.body
+// allows us to handle post data from http requests
 var bodyParser = require('body-parser');
+// for regular post requests
 app.use(bodyParser.urlencoded());
+// for post requests that want json back
 app.use(bodyParser.json());
 
-// sets up a static file server that points to the client directory
+// sets up a static file server
 app.use(express.static(path.join(__dirname, 'client')));
 
-var mongoose = require('./config/mongoose.js');
+// require mongoose config
+require('./config/mongoose.js');
 
-var routes = require('./config/routes.js')(app);
+// requires the routes file
+require('./config/routes.js')(app);
 
-// starts listening
+// listens
 app.listen(8000, function() {
 	console.log('cool stuff on: 8000');
 })

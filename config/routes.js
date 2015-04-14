@@ -1,12 +1,12 @@
-// we are requiring a controller file that will do stuff when a route is triggered
+// load the friends controller that we will then delegate to
 var friends = require('./../server/controllers/friends.js');
 module.exports = function(app) {
-	// these routes are all going to return json 
-	// don't want to render/redirect at all we just want to respond with data
-	app.get('/friends_json', function(req, res) {
+	// handling all of the http routes
+	app.get('/friends', function(req, res) {
+		// delegate to controllers
 		friends.show(req, res);
 	})
-
-	// create a route that handles adding a friend
-	
+	app.post('/friends', function(req, res) {
+		friends.add(req, res);	
+	})
 }
